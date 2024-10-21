@@ -44,24 +44,36 @@ def check(request):
     return render(request, 'check.html')
 
 def predict(request):
-    if request.method == 'POST' and request.FILES['file']:
+    if request.method == 'POST' and 'file' in request.FILES:
         file = request.FILES['file']
         file_name = default_storage.save(file.name, ContentFile(file.read()))
         file_path = os.path.join(default_storage.location, file_name)
 
-        # Make prediction
-        madu_akasia_prob, madu_hutan_prob = predict_honey_color(file_path)
+        try:
+            # Make prediction
+            madu_akasia_prob, madu_hutan_prob = predict_honey_color(file_path)
 
-        # Clean up
-        default_storage.delete(file_name)
+            # Determine the highest probability and type
+            if madu_akasia_prob > madu_hutan_prob:
+                honey_highest_prob = madu_akasia_prob
+                honey_highest_type = 'MADU AKASIA'
+            else:
+                honey_highest_prob = madu_hutan_prob
+                honey_highest_type = 'MADU HUTAN'
 
-        # return JsonResponse({
-        #     'madu_akasia': f'{madu_akasia_prob * 100:.2f}%',
-        #     'madu_hutan': f'{madu_hutan_prob * 100:.2f}%'
-        # })
+            # Prepare response
+            response_data = {
+                'madu_akasia': round(madu_akasia_prob * 100, 6),
+                'madu_hutan': round(madu_hutan_prob * 100, 6),
+                'honey_highest_prob': round(honey_highest_prob * 100, 6),
+                'honey_highest_type': honey_highest_type
+            }
+        except Exception as e:
+            response_data = {'error': str(e)}
+            return JsonResponse(response_data, status=500)
+        finally:
+            # Clean up
+            default_storage.delete(file_name)
 
-        return JsonResponse({
-            'madu_akasia': round(madu_akasia_prob * 100, 6),
-            'madu_hutan': round(madu_hutan_prob * 100, 6)
-        })
+        return JsonResponse(response_data)
     return JsonResponse({'error': 'Invalid request'}, status=400)
