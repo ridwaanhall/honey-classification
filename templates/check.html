@@ -5,7 +5,7 @@
 {% block content %}
 <div class="container mt-3">
     <!-- Upload Form -->
-    <form id="upload-form" enctype="multipart/form-data">
+    <form id="upload-form" enctype="multipart/form-data" class="mt-4">
         <button type="button" class="btn btn-primary me-2" onclick="document.getElementById('upload-input').click();">Upload Gambar</button>
         <input class="form-control" type="file" id="upload-input" accept="image/*" style="display: none;" onchange="previewImage(event)">
         <button type="button" class="btn btn-info" onclick="uploadImage()">Cek Jenis Madu</button>
