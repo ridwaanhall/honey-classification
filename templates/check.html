@@ -6,14 +6,16 @@
 <div class="container mt-3">
     <!-- Upload Form -->
     <form id="upload-form" enctype="multipart/form-data" class="mt-4">
+        <input type="hidden" id="hidden-file-input" name="file">
         <button type="button" class="btn btn-primary me-2" onclick="document.getElementById('upload-input').click();">Upload Gambar</button>
         <input class="form-control" type="file" id="upload-input" accept="image/*" style="display: none;" onchange="previewImage(event)">
-        <button type="button" class="btn btn-info" onclick="uploadImage()">Cek Jenis Madu</button>
+        <button type="button" class="btn btn-info me-2" onclick="uploadImage()">Cek Jenis Madu</button>
+        <button type="button" class="btn btn-secondary" onclick="clearImageAndResult()">Clear</button>
     </form>
 
     <!-- Image Preview -->
     <div class="row mt-3 mb-4">
-        <div class="col-sm-6 mb-3 mb-sm-0">
+        <div class="col-sm-5 mb-3 mb-sm-0">
             <div class="card">
                 <div class="card-header">
                     CITRA MADU
@@ -21,19 +23,60 @@
                 <div class="card-body">
                     <!--<h5 class="card-title mb-3 mb-sm-0">Citra Madu</h5>-->
                     <p class="card-text">Gambar Madu:</p>
-                    <img id="image-preview" src="#" alt="Image Preview" class="rounded img-thumbnail" style="display: none;">
+                    <img id="image-preview" src="#" alt="Image Preview" class="rounded img-thumbnail" style="display: none; max-width: 100%;">
                 </div>
             </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-7">
             <div class="card">
                 <div class="card-header">
-                    HASIL KLASIFIKASI
+                    HASIL PREDIKSI
                 </div>
                 <div class="card-body">
-                    <!--<h5 class="card-title">Hasil Klasifikasi</h5>-->
-                    <p class="card-text">Jenis Madu yang diupload adalah:</p>
-                    <h5 id="prediction-result" class="card-text text-center"></h5>
+                    <!--<h5 class="card-title">Hasil PREDIKSI</h5>-->
+                    <p class="card-text">Jenis Madu yang terprediksi adalah:</p>
+                    <div class="card bg-success text-white mt-2 mb-3">
+                        <div id="honey-highest-type" class="card-body text-center">
+                            -
+                        </div>
+                    </div>
+                    <div id="prediction-result" class="card-text text-center">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Honey Type</th>
+                                    <th>Prediction (%)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Madu Akasia</td>
+                                    <td>-</td>
+                                </tr>
+                                <tr>
+                                    <td>Madu Hutan</td>
+                                    <td>-</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <!-- Modal -->
+        <div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="alertModalLabel">Alert</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Please upload file or select file in sidebar.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -43,6 +86,16 @@
 
 {% block script %}
 <script>
+    function checkInput() {
+        const input = document.getElementById('fileInput');
+        const hiddenInput = document.getElementById('hiddenInput');
+        if ((!input.files || !input.files[0]) && !hiddenInput.value) {
+            const modal = new bootstrap.Modal(document.getElementById('alertModal'));
+            modal.show();
+            return;
+        }
+    }
+
     // Function to handle image preview
     function previewImage(event) {
         const input = event.target;
@@ -61,12 +114,27 @@
     }
 
     // Function to handle image upload and prediction
-    function uploadImage() {
+    async function uploadImage() {
         const input = document.getElementById('upload-input');
-        const formData = new FormData();
-        formData.append('file', input.files[0]);
+        const hiddenInput = document.getElementById('hidden-file-input');
 
-        fetch('/predict/', {
+        if ((!input.files || !input.files[0]) && !hiddenInput.value) {
+            const modal = new bootstrap.Modal(document.getElementById('alertModal'));
+            modal.show();
+            return;
+        }
+
+        const formData = new FormData();
+        if (input.files && input.files[0]) {
+            formData.append('file', input.files[0]);
+        } else {
+            const response = await fetch(hiddenInput.value);
+            const blob = await response.blob();
+            const file = new File([blob], 'image.jpg', { type: blob.type });
+            formData.append('file', file);
+        }
+
+        fetch("{% url 'predict' %}", {
             method: 'POST',
             body: formData,
             headers: {
@@ -76,9 +144,30 @@
         .then(response => response.json())
         .then(data => {
             if (data.madu_akasia && data.madu_hutan) {
-                document.getElementById('prediction-result').innerHTML = `Madu Akasia: ${data.madu_akasia}%<br>Madu Hutan: ${data.madu_hutan}%`;
+            const table = `
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Honey Type</th>
+                            <th>Prediction (%)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Madu Akasia</td>
+                            <td>${data.madu_akasia}%</td>
+                        </tr>
+                        <tr>
+                            <td>Madu Hutan</td>
+                            <td>${data.madu_hutan}%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            `;
+            document.getElementById('prediction-result').innerHTML = table;
+            document.getElementById('honey-highest-type').innerText = `${data.honey_highest_type}`;
             } else {
-                alert('Error predicting honey type');
+            alert('Error predicting honey type');
             }
         })
         .catch(error => {
@@ -100,6 +189,44 @@
             }
         }
         return cookieValue;
+    }
+
+    function showImage(imageSrc) {
+        var img = document.getElementById('image-preview');
+        
+        img.src = imageSrc;
+        
+        img.style.display = 'block';
+
+        document.getElementById('hidden-file-input').value = imageSrc;
+    }
+
+    // Function to clear image preview and prediction result
+    function clearImageAndResult() {
+        document.getElementById('image-preview').style.display = 'none';
+        document.getElementById('image-preview').src = '#';
+        document.getElementById('prediction-result').innerHTML = `
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Honey Type</th>
+                        <th>Prediction (%)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Madu Akasia</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>Madu Hutan</td>
+                        <td>-</td>
+                    </tr>
+                </tbody>
+            </table>`;
+        document.getElementById('honey-highest-type').innerText = '-';
+        document.getElementById('upload-input').value = '';
+        document.getElementById('hidden-file-input').value = '';
     }
 </script>
 {% endblock %}
