@@ -65,7 +65,7 @@ def predict(request):
             response_data = {
                 'madu_akasia': round(madu_akasia_prob * 100, 6),
                 'madu_hutan': round(madu_hutan_prob * 100, 6),
-                'honey_highest_prob': round(honey_highest_prob * 100, 6),
+                'honey_highest_prob': round(honey_highest_prob * 100, 2),
                 'honey_highest_type': honey_highest_type
             }
         except Exception as e:
