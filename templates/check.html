@@ -165,7 +165,7 @@
                 </table>
             `;
             document.getElementById('prediction-result').innerHTML = table;
-            document.getElementById('honey-highest-type').innerText = `${data.honey_highest_type}`;
+            document.getElementById('honey-highest-type').innerText = `${data.honey_highest_type} (${data.honey_highest_prob}%)`;
             } else {
             alert('Error predicting honey type');
             }
