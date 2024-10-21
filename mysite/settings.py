@@ -25,7 +25,11 @@ SECRET_KEY = 'django-insecure-slqk+xpj&3$=$l+phe=l-y#2)&=ap$msfwf6us3)tpy!50v1)1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['erbyl.pythonanywhere.com']
+ALLOWED_HOSTS = [
+    'erbyl.pythonanywhere.com', 
+    'localhost', 
+    '127.0.0.1'
+]
 
 
 # Application definition
