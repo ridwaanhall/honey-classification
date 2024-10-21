@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ridwan Halim - Portfolio</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #77ab59 3px solid;
+        }
+        header a {
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 16px;
+        }
+        header ul {
+            padding: 0;
+            list-style: none;
+        }
+        header li {
+            float: left;
+            display: inline;
+            padding: 0 20px 0 20px;
+        }
+        header #branding {
+            float: left;
+        }
+        header #branding h1 {
+            margin: 0;
+        }
+        header nav {
+            float: right;
+            margin-top: 10px;
+        }
+        header .highlight, header .current a {
+            color: #e8491d;
+        }
+        header a:hover {
+            color: #cccccc;
+            font-weight: bold;
+        }
+        .showcase {
+            min-height: 400px;
+            background: url('showcase.jpg') no-repeat 0 -400px;
+            text-align: center;
+            color: #fff;
+        }
+        .showcase h1 {
+            margin-top: 100px;
+            font-size: 55px;
+            margin-bottom: 10px;
+        }
+        .showcase p {
+            font-size: 20px;
+        }
+        #main {
+            margin: 20px 0;
+        }
+        #main .container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .card {
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+            padding: 20px;
+            flex: 1 1 300px;
+        }
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 20px;
+        }
+        footer a {
+            color: #e8491d;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div id="branding">
+                <h1>Ridwan Halim</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li class="current"><a href="#about">About Me</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#education">Education</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#languages">Languages</a></li>
+                    <li><a href="#awards">Awards</a></li>
+                    <li><a href="#certifications">Certifications</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="showcase">
+        <div class="container">
+            <h1>Welcome to My Portfolio</h1>
+            <p>Passionate Python Developer specializing in Web Development and AI/ML</p>
+        </div>
+    </section>
+
+    <div id="main" class="container">
+        <section id="about" class="card">
+            <h2>About Me</h2>
+            <p>Passionate Python Developer specializing in Web Development and AI/ML, adept at completing 30+ projects. Skilled in utilizing Python for Web Development such as Django and Flask. Interested in Artificial Intelligence and Machine Learning. Eager to contribute expertise to cutting-edge tech projects. Achieved a personal milestone of memorizing nearly 30 chapters (JUZs) from the Quran.</p>
+        </section>
+
+        <section id="experience" class="card">
+            <h2>Experience</h2>
+            <h3>Founder, Ridwaanhall Projects</h3>
+            <p><strong>Part-time | Jan 2023 – Present | Yogyakarta, Indonesia</strong></p>
+            <ul>
+                <li>GitHub Stats: 6 stars earned, 2.2k+ commits, 18+ PRs, 2+ reported issues.</li>
+                <li>Identified and reported 4+ bugs in various software applications.</li>
+                <li>Completed 10+ projects utilizing scikit-learn, PyTorch, and TensorFlow.</li>
+                <li>Developed 20+ websites using Django, Laravel, Flask, React.js, and WordPress.</li>
+                <li>Implemented web scraping solutions for 9+ projects.</li>
+            </ul>
+            <!-- Additional experience entries can be added in a similar format -->
+        </section>
+
+        <section id="education" class="card">
+            <h2>Education</h2>
+            <h3>University of Technology Yogyakarta</h3>
+            <p><strong>Bachelor of Informatics, GPA 3.58 of 4.0 (Artificial Intelligence) | 2021 - Present</strong></p>
+        </section>
+
+        <section id="projects" class="card">
+            <h2>Projects</h2>
+            <ul>
+                <li><strong>Portfolio Website using Django integrated with DB</strong> | Nov 2023 – Dec 2023 | <a href="#">(project link)</a></li>
+                <li><strong>Countermeasure Against Online Scams: Python-Based Website Attack</strong> | Mar 2023 – Oct 2023 | <a href="#">(project link)</a></li>
+                <li><strong>Indonesia Tsunami Warning Early System (INATEWS)</strong> | Aug 2023 – Sep 2023 | <a href="#">(project link)</a></li>
+            </ul>
+        </section>
+
+        <section id="skills" class="card">
+            <h2>Skills & Tools</h2>
+            <p><strong>Hard Skills:</strong> Python, PHP, HTML, React.js, Bootstrap, Django, Flask, Laravel, Pytorch, TensorFlow, MySQL, SQLite, MongoDB, Git, Figma, Ms Word, MS Excel, Wordpress.</p>
+            <p><strong>Soft Skills:</strong> Communication, Public Speaking, Problem-solving, Collaboration, Attention to Detail, Time Management, Continuous Learning, Critical Thinking.</p>
+        </section>
+
+        <section id="languages" class="card">
+            <h2>Languages</h2>
+            <p>Indonesian (Native or bilingual proficiency), Javanese (Native or bilingual proficiency), English (Limited working proficiency), Arabic (Limited working proficiency), Malay (Limited working proficiency).</p>
+        </section>
+
+        <section id="awards" class="card">
+            <h2>Awards</h2>
+            <ul>
+                <li>Certificate of Scholarship for memorizing 10 JUZs of the Quran (PPIM) | Mar 2023</li>
+                <li>Certificate of thanks and appreciation for diligence in memorizing the Qur’an (PPIM) | Feb 2023</li>
+            </ul>
+        </section>
+
+        <section id="certifications" class="card">
+            <h2>Licenses and Certifications</h2>
+            <ul>
+                <li>Artificial Intelligence Foundations: Machine Learning by LinkedIn | Nov 2023 - Present</li>
+                <li>Machine Learning Professional Certification by Altair RapidMiner | Jun 2023 - Present</li>
+                <li>Career Essentials in Generative AI by Microsoft and LinkedIn | Oct 2023 - Present</li>
+            </ul>
+        </section>
+
+        <section id="contact" class="card">
+            <h2>Contact</h2>
+            <p><strong>Location:</strong> Yogyakarta, Indonesia</p>
+            <p><strong>Phone:</strong> (+62) 812-1640-4522</p>
+            <p><strong>Email:</strong> <a href="mailto:ridwaanhall@outlook.com">ridwaanhall@outlook.com</a></p>
+            <p><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/ridwaanhall">linkedin.com/in/ridwaanhall</a></p>
+            <p><strong>GitHub:</strong> <a href="#">GitHub</a></p>
+        </section>
+    </div>
+
+    <footer>
+        <p>Ridwan Halim &copy; 2024</p>
+    </footer>
+</body>
+</html>

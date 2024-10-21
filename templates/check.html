@@ -1,0 +1,105 @@
+{% extends 'main.html' %}
+
+{% block title %}Cek Jenis Madu{% endblock %}
+
+{% block content %}
+<div class="container mt-3">
+    <!-- Upload Form -->
+    <form id="upload-form" enctype="multipart/form-data">
+        <button type="button" class="btn btn-primary me-2" onclick="document.getElementById('upload-input').click();">Upload Gambar</button>
+        <input class="form-control" type="file" id="upload-input" accept="image/*" style="display: none;" onchange="previewImage(event)">
+        <button type="button" class="btn btn-info" onclick="uploadImage()">Cek Jenis Madu</button>
+    </form>
+
+    <!-- Image Preview -->
+    <div class="row mt-3 mb-4">
+        <div class="col-sm-6 mb-3 mb-sm-0">
+            <div class="card">
+                <div class="card-header">
+                    CITRA MADU
+                </div>
+                <div class="card-body">
+                    <!--<h5 class="card-title mb-3 mb-sm-0">Citra Madu</h5>-->
+                    <p class="card-text">Gambar Madu:</p>
+                    <img id="image-preview" src="#" alt="Image Preview" class="rounded img-thumbnail" style="display: none;">
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-header">
+                    HASIL KLASIFIKASI
+                </div>
+                <div class="card-body">
+                    <!--<h5 class="card-title">Hasil Klasifikasi</h5>-->
+                    <p class="card-text">Jenis Madu yang diupload adalah:</p>
+                    <h5 id="prediction-result" class="card-text text-center"></h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    // Function to handle image preview
+    function previewImage(event) {
+        const input = event.target;
+        const preview = document.getElementById('image-preview');
+
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    // Function to handle image upload and prediction
+    function uploadImage() {
+        const input = document.getElementById('upload-input');
+        const formData = new FormData();
+        formData.append('file', input.files[0]);
+
+        fetch('/predict/', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken'),
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.madu_akasia && data.madu_hutan) {
+                document.getElementById('prediction-result').innerHTML = `Madu Akasia: ${data.madu_akasia}%<br>Madu Hutan: ${data.madu_hutan}%`;
+            } else {
+                alert('Error predicting honey type');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+    // Function to get CSRF token
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+</script>
+{% endblock %}
