@@ -6,6 +6,7 @@
 <div class="container mt-3">
     <!-- Upload Form -->
     <form id="upload-form" enctype="multipart/form-data" class="mt-4">
+        {% csrf_token %}
         <input type="hidden" id="hidden-file-input" name="file">
         <button type="button" class="btn btn-primary me-2" onclick="document.getElementById('upload-input').click();">Upload Gambar</button>
         <input class="form-control" type="file" id="upload-input" accept="image/*" style="display: none;" onchange="previewImage(event)">
@@ -134,40 +135,42 @@
             formData.append('file', file);
         }
 
+        const csrfToken = getCookie('csrftoken');
+
         fetch("{% url 'predict' %}", {
             method: 'POST',
             body: formData,
             headers: {
-                'X-CSRFToken': getCookie('csrftoken'),
+                'X-CSRFToken': csrfToken,
             }
         })
         .then(response => response.json())
         .then(data => {
             if (data.madu_akasia && data.madu_hutan) {
-            const table = `
-                <table class="table table-striped table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Honey Type</th>
-                            <th>Prediction (%)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Madu Akasia</td>
-                            <td>${data.madu_akasia}%</td>
-                        </tr>
-                        <tr>
-                            <td>Madu Hutan</td>
-                            <td>${data.madu_hutan}%</td>
-                        </tr>
-                    </tbody>
-                </table>
-            `;
-            document.getElementById('prediction-result').innerHTML = table;
-            document.getElementById('honey-highest-type').innerText = `${data.honey_highest_type} (${data.honey_highest_prob}%)`;
+                const table = `
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Honey Type</th>
+                                <th>Prediction (%)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Madu Akasia</td>
+                                <td>${data.madu_akasia}%</td>
+                            </tr>
+                            <tr>
+                                <td>Madu Hutan</td>
+                                <td>${data.madu_hutan}%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                `;
+                document.getElementById('prediction-result').innerHTML = table;
+                document.getElementById('honey-highest-type').innerText = `${data.honey_highest_type} (${data.honey_highest_prob}%)`;
             } else {
-            alert('Error predicting honey type');
+                alert('Error predicting honey type');
             }
         })
         .catch(error => {
