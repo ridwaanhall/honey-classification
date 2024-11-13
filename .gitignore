@@ -1,3 +1,4 @@
 venv/
 text.txt
 __pycache__/
+*.xml
