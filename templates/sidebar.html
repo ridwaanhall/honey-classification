@@ -1,22 +1,142 @@
 {% load static %}
-<div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;">
+<div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px; height: 100vh; overflow-y: auto;">
     <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
         <img src="{% static 'favicon.ico' %}" alt="Logo" width="40" height="32" class="me-2" />
         <span class="fs-4">HONEY PRED</span>
     </a>
     <hr />
-    <div class="nav nav-pills flex-column mb-auto">
-        <button type="button" class="btn btn-outline-info mt-4" onclick="showImage('/static/img/madu_hutan/hutan_1.jpg')">
-            Sample Madu Hutan 1
-        </button>
-        <button type="button" class="btn btn-outline-info mt-2" onclick="showImage('/static/img/madu_hutan/hutan_2.jpg')">
-            Sample Madu Hutan 2
-        </button>
-        <button type="button" class="btn btn-outline-info mt-2" onclick="showImage('/static/img/madu_akasia/akasia_1.jpg')">
-            Sample Madu Akasia 1
-        </button>
-        <button type="button" class="btn btn-outline-info mt-2" onclick="showImage('/static/img/madu_akasia/akasia_2.jpg')">
-            Sample Madu Akasia 2
-        </button>
+
+    <!-- Sample Madu Hutan Section -->
+    <div class="section mb-4">
+        <h5>Sample Madu Hutan</h5>
+        <div class="row">
+            <div class="col-6 mb-3">
+                <button type="button" class="btn btn-outline-info w-100" onclick="showImage('{% static 'img/madu_hutan/hutan_1.jpg' %}')">
+                    Gambar 1
+                </button>
+            </div>
+            <!--<div class="col-6 mb-3">-->
+            <!--    <button type="button" class="btn btn-outline-info w-100" onclick="showImage('{% static 'img/madu_hutan/hutan_2.jpg' %}')">-->
+            <!--        Gambar 2-->
+            <!--    </button>-->
+            <!--</div>-->
+            <div class="col-6 mb-3">
+                <button type="button" class="btn btn-outline-info w-100" onclick="showImage('{% static 'img/madu_hutan/20240603_132917.jpg' %}')">
+                    Gambar 2
+                </button>
+            </div>
+            <!--<div class="col-6 mb-3">-->
+            <!--    <button type="button" class="btn btn-outline-info w-100" onclick="showImage('{% static 'img/madu_hutan/20240603_133649.jpg' %}')">-->
+            <!--        Gambar 4-->
+            <!--    </button>-->
+            <!--</div>-->
+            <div class="col-6 mb-3">
+                <button type="button" class="btn btn-outline-info w-100" onclick="showImage('{% static 'img/madu_hutan/20240603_134018.jpg' %}')">
+                    Gambar 3
+                </button>
+            </div>
+            <div class="col-6 mb-3">
+                <button type="button" class="btn btn-outline-info w-100" onclick="showImage('{% static 'img/madu_hutan/20240603_134123.jpg' %}')">
+                    Gambar 4
+                </button>
+            </div>
+            <div class="col-6 mb-3">
+                <button type="button" class="btn btn-outline-info w-100" onclick="showImage('{% static 'img/madu_hutan/20240603_134132.jpg' %}')">
+                    Gambar 5
+                </button>
+            </div>
+            <div class="col-6 mb-3">
+                <button type="button" class="btn btn-outline-info w-100" onclick="showImage('{% static 'img/madu_hutan/20240603_134736.jpg' %}')">
+                    Gambar 6
+                </button>
+            </div>
+            <div class="col-6 mb-3">
+                <button type="button" class="btn btn-outline-info w-100" onclick="showImage('{% static 'img/madu_hutan/20240603_135035.jpg' %}')">
+                    Gambar 7
+                </button>
+            </div>
+            <div class="col-6 mb-3">
+                <button type="button" class="btn btn-outline-info w-100" onclick="showImage('{% static 'img/madu_hutan/20240603_135055.jpg' %}')">
+                    Gambar 8
+                </button>
+            </div>
+            <div class="col-6 mb-3">
+                <button type="button" class="btn btn-outline-info w-100" onclick="showImage('{% static 'img/madu_hutan/20240603_135300.jpg' %}')">
+                    Gambar 9
+                </button>
+            </div>
+            <div class="col-6 mb-3">
+                <button type="button" class="btn btn-outline-info w-100" onclick="showImage('{% static 'img/madu_hutan/20240603_135503.jpg' %}')">
+                    Gambar 10
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sample Madu Akasia Section -->
+    <div class="section mb-4">
+        <h5>Sample Madu Akasia</h5>
+        <div class="row">
+            <div class="col-6 mb-3">
+                <button type="button" class="btn btn-outline-info w-100" onclick="showImage('{% static 'img/madu_akasia/20240603_132932.jpg' %}')">
+                    Gambar 1
+                </button>
+            </div>
+            <div class="col-6 mb-3">
+                <button type="button" class="btn btn-outline-info w-100" onclick="showImage('{% static 'img/madu_akasia/20240603_133258.jpg' %}')">
+                    Gambar 2
+                </button>
+            </div>
+            <div class="col-6 mb-3">
+                <button type="button" class="btn btn-outline-info w-100" onclick="showImage('{% static 'img/madu_akasia/20240603_133924.jpg' %}')">
+                    Gambar 3
+                </button>
+            </div>
+            <div class="col-6 mb-3">
+                <button type="button" class="btn btn-outline-info w-100" onclick="showImage('{% static 'img/madu_akasia/20240603_134003.jpg' %}')">
+                    Gambar 4
+                </button>
+            </div>
+            <div class="col-6 mb-3">
+                <button type="button" class="btn btn-outline-info w-100" onclick="showImage('{% static 'img/madu_akasia/20240603_134006.jpg' %}')">
+                    Gambar 5
+                </button>
+            </div>
+            <div class="col-6 mb-3">
+                <button type="button" class="btn btn-outline-info w-100" onclick="showImage('{% static 'img/madu_akasia/20240603_134154.jpg' %}')">
+                    Gambar 6
+                </button>
+            </div>
+            <div class="col-6 mb-3">
+                <button type="button" class="btn btn-outline-info w-100" onclick="showImage('{% static 'img/madu_akasia/20240603_134229.jpg' %}')">
+                    Gambar 7
+                </button>
+            </div>
+            <div class="col-6 mb-3">
+                <button type="button" class="btn btn-outline-info w-100" onclick="showImage('{% static 'img/madu_akasia/20240603_134339.jpg' %}')">
+                    Gambar 8
+                </button>
+            </div>
+            <div class="col-6 mb-3">
+                <button type="button" class="btn btn-outline-info w-100" onclick="showImage('{% static 'img/madu_akasia/20240603_134340.jpg' %}')">
+                    Gambar 9
+                </button>
+            </div>
+            <div class="col-6 mb-3">
+                <button type="button" class="btn btn-outline-info w-100" onclick="showImage('{% static 'img/madu_akasia/20240603_134437.jpg' %}')">
+                    Gambar 10
+                </button>
+            </div>
+            <!--<div class="col-6 mb-3">-->
+            <!--    <button type="button" class="btn btn-outline-info w-100" onclick="showImage('{% static 'img/madu_akasia/akasia_1.jpg' %}')">-->
+            <!--        Gambar 11-->
+            <!--    </button>-->
+            <!--</div>-->
+            <!--<div class="col-6 mb-3">-->
+            <!--    <button type="button" class="btn btn-outline-info w-100" onclick="showImage('{% static 'img/madu_akasia/akasia_2.jpg' %}')">-->
+            <!--        Gambar 12-->
+            <!--    </button>-->
+            <!--</div>-->
+        </div>
     </div>
 </div>
